@@ -14,7 +14,9 @@ public class Database {
 
     public static void add(Entity e) throws InvalidEntityException {
         Validator validator = validators.get(e.getEntityCode());
-        validator.validate(e);
+        if (validator != null) {
+            validator.validate(e);
+        }
 
         counter++;
         e.id = counter;
@@ -42,7 +44,9 @@ public class Database {
 
     public static void update(Entity e) throws InvalidEntityException {
         Validator validator = validators.get(e.getEntityCode());
-        validator.validate(e);
+        if (validator != null) {
+            validator.validate(e);
+        }
 
         for (Entity entity : entities){
             if(entity.id == e.id){
