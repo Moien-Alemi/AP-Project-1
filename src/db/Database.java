@@ -8,7 +8,7 @@ import db.exception.*;
 public class Database {
     private static final ArrayList<Entity> entities = new ArrayList<Entity>();
     private static int counter = 0;
-    private static HashMap<Integer, Validator> validators;
+    private static HashMap<Integer, Validator> validators = new HashMap<>();
 
     private Database() {}
 
