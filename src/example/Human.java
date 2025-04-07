@@ -3,6 +3,8 @@ package example;
 import db.*;
 
 public class Human extends Entity {
+    public static final int HUMAN_ENTITY_CODE = 14;
+
     public String name;
     public int age;
 
@@ -17,5 +19,10 @@ public class Human extends Entity {
         copyHuman.id = id;
 
         return copyHuman;
+    }
+
+    @Override
+    public int getEntityCode() {
+        return HUMAN_ENTITY_CODE;
     }
 }
