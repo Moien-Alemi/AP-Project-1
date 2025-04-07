@@ -3,6 +3,8 @@ package example;
 import db.*;
 
 public class Animal extends Entity {
+    final int ANIMAL_ENTITY_CODE = 20;
+
     public String name;
     public int numberOfLegs;
 
@@ -17,5 +19,10 @@ public class Animal extends Entity {
         animalCopy.id = this.id;
 
         return animalCopy;
+    }
+
+    @Override
+    public int getEntityCode() {
+        return ANIMAL_ENTITY_CODE;
     }
 }
