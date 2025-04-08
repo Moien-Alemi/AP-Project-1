@@ -1,6 +1,7 @@
 package db;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import db.exception.*;
@@ -16,6 +17,12 @@ public class Database {
         Validator validator = validators.get(e.getEntityCode());
         if (validator != null) {
             validator.validate(e);
+        }
+
+        if(e instanceof Trackable){
+            Date now = new Date();
+            ((Trackable) e).setCreationDate(now);
+            ((Trackable) e).setLastModificationDate(now);
         }
 
         counter++;
@@ -46,6 +53,10 @@ public class Database {
         Validator validator = validators.get(e.getEntityCode());
         if (validator != null) {
             validator.validate(e);
+        }
+
+        if(e instanceof Trackable){
+            ((Trackable) e).setLastModificationDate(new Date());
         }
 
         for (Entity entity : entities){
