@@ -11,7 +11,7 @@ public class TaskValidator implements Validator{
         if(!(entity instanceof Task)){
             throw new IllegalArgumentException("The input is not an instance of Task class.");
         }
-        if(((Task) entity).title.isEmpty() || ((Task) entity).title == null){
+        if(((Task) entity).getTitle().isEmpty() || ((Task) entity).getTitle() == null){
             throw new InvalidEntityException("Task's title should not be empty.");
         }
     }

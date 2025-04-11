@@ -14,12 +14,12 @@ public class StepValidator implements Validator{
             throw new IllegalArgumentException("The input is not an instance of Step class.");
         }
 
-        if(((Step) entity).title.isEmpty() || ((Step) entity).title == null){
+        if(((Step) entity).getTitle().isEmpty() || ((Step) entity).getTitle() == null){
             throw new InvalidEntityException("Step's title should not be empty.");
         }
 
         for(Entity e : Database.getAll(Task.TASK_ENTITY_CODE)){
-            if(e.id == ((Step) entity).taskRef){
+            if(e.id == ((Step) entity).getTaskRef()){
                 return;
             }
         }

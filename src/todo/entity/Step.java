@@ -6,9 +6,9 @@ import java.util.Date;
 public class Step extends Entity{
     public static final int STEP_ENTITY_CODE = 2;
 
-    public String title;
-    public Status status;
-    public int taskRef;
+    private String title;
+    private Status status;
+    private int taskRef;
 
     public enum Status{
         NotStarted,
@@ -31,5 +31,25 @@ public class Step extends Entity{
     @Override
     public int getEntityCode(){
         return STEP_ENTITY_CODE;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public int getTaskRef() {
+        return taskRef;
     }
 }
