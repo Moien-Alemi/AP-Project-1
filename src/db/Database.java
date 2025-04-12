@@ -78,4 +78,14 @@ public class Database {
         validators.put(entityCode, validator);
     }
 
+    public static ArrayList<Entity> getAll(int entityCode) {
+        ArrayList<Entity> list = new ArrayList<>();
+        for(Entity e : entities){
+            if(e.getEntityCode() == entityCode){
+                list.add(e);
+            }
+        }
+        return list;
+    }
+
 }
