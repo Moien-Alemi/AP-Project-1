@@ -14,5 +14,11 @@ public class TaskValidator implements Validator{
         if(((Task) entity).getTitle().isEmpty() || ((Task) entity).getTitle() == null){
             throw new InvalidEntityException("Task's title should not be empty.");
         }
+        if(((Task) entity).getDescription().isEmpty() || ((Task) entity).getDescription() == null){
+            throw new InvalidEntityException("Task's description should not be empty.");
+        }
+        if(((Task) entity).getDueDate() == null){
+            throw new InvalidEntityException("Task's dueDate should not be empty.");
+        }
     }
 }
