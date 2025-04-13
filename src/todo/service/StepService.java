@@ -41,6 +41,7 @@ public class StepService {
             switch (field) {
                 case "title":
                     newStep = new Step(newValue, oldStep.getStatus(), oldStep.getTaskRef());
+                    newStep.id = oldStep.id;
                     Database.update(newStep);
                     System.out.println("Successfully updated the Step.");
                     System.out.println("Field: " + field);
@@ -50,10 +51,11 @@ public class StepService {
                     System.out.println();
                     break;
                 case "status":
-                    newValue = newValue.toUpperCase();
                     Step.Status newStatus = Step.Status.valueOf(newValue);
                     newStep = new Step(oldStep.getTitle(), newStatus, oldStep.getTaskRef());
+                    newStep.id = oldStep.id;
                     Database.update(newStep);
+                    StepService.checkTaskStatus(newStep.getTaskRef());
                     System.out.println("Successfully updated the Step.");
                     System.out.println("Field: " + field);
                     System.out.println("Old value: " + oldStep.getStatus());
@@ -75,5 +77,49 @@ public class StepService {
         }
     }
 
-}
+    public static void checkTaskStatus(int taskID){
+        ArrayList<Step> stepList = findAllSteps(taskID);
+
+        boolean isNotStarted = true;
+        boolean isComplete = true;
+        for (Step s : stepList) {
+            if (s.getStatus() == Step.Status.Completed) {
+                isNotStarted = false;
+                break;
+            }
+        }
+        if (isNotStarted == false) {
+            for(Step s : stepList) {
+                if (s.getStatus() != Step.Status.Completed){
+                    isComplete = false;
+                    break;
+                }
+            }
+        }
+
+        if (isNotStarted == false ){
+            if(isComplete == true){
+                TaskService.updateTask(taskID, "status", "Completed");
+            }else {
+                TaskService.updateTask(taskID, "status", "InProgress");
+            }
+        }
+    }
+
+    public static ArrayList<Step> findAllSteps(int taskID){
+        ArrayList<Step> stepList = new ArrayList<>();
+        for (Entity entity : Database.getAll(Step.STEP_ENTITY_CODE)) {
+            if (((Step) entity).getTaskRef() == taskID) {
+                stepList.add(((Step) entity));
+            }
+        }
+        return stepList;
+    }
+
+    public static void showStep(Step step){
+        System.out.println("\t+ " + step.getTitle() + ":");
+        System.out.println("\t\tID: " + step.id);
+        System.out.println("\t\tStatus: " + step.getStatus());
+    }
+
 }
