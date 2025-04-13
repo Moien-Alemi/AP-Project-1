@@ -16,6 +16,7 @@ public class Main {
         String command;
 
         while(running == true) {
+            System.out.println();
             System.out.println("### Main menu ###");
             System.out.println("Please enter one of the following commands.");
             System.out.println("1. add task");
@@ -47,6 +48,18 @@ public class Main {
                     case "update step":
                         updateStep(scn);
                         break;
+                    case "get task-by-id":
+                        getTaskByID(scn);
+                        break;
+                    case "get all-tasks":
+                        getAllTask();
+                        break;
+                    case "get incomplete-tasks":
+                        getIncompleteTasks();
+                        break;
+                    case "exit":
+                        running = false;
+                        break;
                     default:
                         throw new IllegalArgumentException("This command doesn't exist in the command list.");
                 }
@@ -59,7 +72,7 @@ public class Main {
     }
 
     private static void updateStep(Scanner scn) {
-        System.out.println("Please enter task ID.");
+        System.out.println("Please enter Step ID.");
         System.out.print("ID : ");
         int ID = scn.nextInt();
         scn.nextLine();
@@ -132,4 +145,19 @@ public class Main {
         System.out.println();
     }
 
+    public static void getTaskByID(Scanner scn){
+        System.out.println("Please enter Task ID.");
+        System.out.print("ID : ");
+        int ID = scn.nextInt();
+        scn.nextLine();
+        TaskService.getTask(ID);
+    }
+
+    public static void getAllTask(){
+        TaskService.getAllTask();
+    }
+
+    public static void getIncompleteTasks(){
+          TaskService.getIncompleteTasks();
+    }
 }
